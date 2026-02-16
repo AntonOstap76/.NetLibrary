@@ -1,6 +1,9 @@
-﻿namespace MagazineIssueRepositoryProject;
+﻿using CommonRepositoryProject;
+using DomainProject;
 
-public class MagazineIssueRepository
+namespace MagazineIssueRepositoryProject;
+
+public class MagazineIssueRepository: CommonEntityRepository<MagazineIssue>,  IMagazineIssueRepository
 {
     
 }

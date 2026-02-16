@@ -1,6 +1,9 @@
-﻿namespace BookRepositoryProject;
+﻿using CommonRepositoryProject;
+using DomainProject;
 
-public interface IBookRepository
+namespace BookRepositoryProject;
+
+public interface IBookRepository : ICommonEntityRepository<Book>
 {
-    
+       
 }

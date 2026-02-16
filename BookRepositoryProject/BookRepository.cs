@@ -1,6 +1,9 @@
-﻿namespace BookRepositoryProject;
+﻿using CommonRepositoryProject;
+using DomainProject;
 
-public class BookRepository
+namespace BookRepositoryProject;
+
+public class BookRepository : CommonEntityRepository<Book>
 {
     
 }

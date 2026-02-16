@@ -1,6 +1,9 @@
-﻿namespace PatentRepositoryProject;
+﻿using CommonRepositoryProject;
+using DomainProject;
 
-public interface IPatentRepository
+namespace PatentRepositoryProject;
+
+public interface IPatentRepository : ICommonEntityRepository<Patent>
 {
     
 }
