@@ -1,5 +1,8 @@
-﻿namespace PublisherRepositoryProject;
+﻿using CommonRepositoryProject;
 
-public class PublisherDTO
+namespace PublisherRepositoryProject;
+
+public class PublisherDTO :CommonCreatorDTO
 {
+    public DateTime FoundedYear { get; set; }
 }

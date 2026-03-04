@@ -5,13 +5,13 @@ namespace CommonRepositoryProject;
 public class CommonCreatorRepository<T> : ICommonCreatorRepository<T> 
     where T : CommonCreator
 {
-    private readonly List<T> _databaseCreator = new();
-    public void Add(T entity)
+    public readonly List<T> _databaseCreator = new();
+    public virtual void Add(T entity)
     {
         _databaseCreator.Add(entity);
     }
 
-    public void Update(T entity)
+    public virtual void Update(T entity)
     {
        var existed =  _databaseCreator.FirstOrDefault(x => x.Id == entity.Id);
        if (existed == null) return;
@@ -19,22 +19,22 @@ public class CommonCreatorRepository<T> : ICommonCreatorRepository<T>
        _databaseCreator[index] = entity;
     }
 
-    public void Delete(T entity)
+    public virtual void Delete(T entity)
     {
         _databaseCreator.RemoveAll(e => e.Id == entity.Id);
     }
 
-    public Task<bool> SaveChangesAsync()
+    public virtual Task<bool> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         return Task.FromResult(true);
     }
 
-    public bool Exists(T entity)
+    public virtual bool Exists(T entity)
     {
         return _databaseCreator.Any(e => e.Id == entity.Id);
     }
 
-    public Task<List<CommonEntity>> GetAllEntitiesAsync(Guid id)
+    public virtual Task<List<CommonEntity>> GetAllEntitiesAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var creator = _databaseCreator.FirstOrDefault(c => c.Id == id);
 

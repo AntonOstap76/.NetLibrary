@@ -16,4 +16,10 @@ public class Patent:CommonEntity
         PublishDate = publishDate;
         Authors = authors;
     }
+
+    public override string ToString()
+    {
+        return $"Patent {Title} with code {PatentCode} that was published {PublishDate}" +
+               $" and have {Authors.Count} authors with content:{Content}";
+    }
 }

@@ -1,6 +1,8 @@
-﻿namespace BookRepositoryProject;
+﻿using CommonRepositoryProject;
 
-public class BookDTO 
+namespace BookRepositoryProject;
+
+public class BookDTO :CommonEntityDTO
 {
-    
+    public required string Isbn { get; set; }
 }

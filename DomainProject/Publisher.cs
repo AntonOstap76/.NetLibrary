@@ -11,4 +11,10 @@ public class Publisher: CommonCreator
         FoundedYear = foundedYear;
         Entities = entities;
     }
+
+    public override string ToString()
+    {
+        return $"Publisher {Name} from {Country.Name} FoundedYear {FoundedYear}" +
+               $" with {Entities?.Count} works published";
+    }
 }

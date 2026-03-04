@@ -7,6 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\BookRepositoryProject\BookRepositoryProject.csproj" />
+      <ProjectReference Include="..\CommonServiceProject\CommonServiceProject.csproj" />
       <ProjectReference Include="..\ValidatorProject\ValidatorProject.csproj" />
     </ItemGroup>
 

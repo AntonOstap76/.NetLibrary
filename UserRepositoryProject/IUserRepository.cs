@@ -2,5 +2,5 @@
 
 public interface IUserRepository
 {
-    
+    // think about user logic
 }

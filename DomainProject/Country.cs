@@ -12,4 +12,9 @@ public class Country
         Code = code;
         Language = language;
     }
+
+    public override string ToString()
+    {
+        return $"Country called {Name} with code {Code} with language {Language}";
+    }
 }

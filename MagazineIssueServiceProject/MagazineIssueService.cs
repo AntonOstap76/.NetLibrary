@@ -1,5 +1,20 @@
-﻿namespace MagazineIssueServiceProject;
+﻿using CommonRepositoryProject;
+using CommonServiceProject;
+using DomainProject;
+using MagazineIssueRepositoryProject;
 
-public class MagazineIssueService
+namespace MagazineIssueServiceProject;
+
+public class MagazineIssueService:CommonEntityService<MagazineIssue>, IMagazineIssueService
 {
+    private readonly IMagazineIssueRepository _repository;
+    public MagazineIssueService(MagazineIssueRepository repository) : base(repository)
+    {
+        _repository = repository;
+    }
+
+    public Task<List<MagazineIssue?>> GetAllByMagazineIdAsync(Guid magazineId, CancellationToken cancellationToken = default)
+    {
+        return _repository.GetAllByMagazineIdAsync(magazineId, cancellationToken);
+    }
 }

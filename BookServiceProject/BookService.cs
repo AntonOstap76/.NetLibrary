@@ -1,11 +1,26 @@
-﻿namespace BookServiceProject;
+﻿using BookRepositoryProject;
+using CommonRepositoryProject;
+using CommonServiceProject;
+using DomainProject;
+
+namespace BookServiceProject;
 using ValidatorProject;
 using ValidatorProject.Numbers;
-public class BookService
+public class BookService : CommonEntityService<Book>,IBookService
 {
-    public void Test()
+    private readonly IBookRepository _repository;
+    public BookService(IBookRepository repository) : base(repository)
     {
-        Validator<int> validator = new Validator<int>();
-        validator.IsNotNull(5).LessThan(2,1).LessThan(4,5).Validate();
+        _repository = repository;
+    }
+
+    public Task<List<Book>?> GetAllByAuthorAsync(Guid authorId, CancellationToken cancellationToken = default)
+    {
+        return _repository.GetAllByAuthorAsync(authorId, cancellationToken);
+    }
+
+    public Task<List<Book?>> GetAllByPublisherAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        return _repository.GetAllByPublisherAsync(id, cancellationToken);
     }
 }

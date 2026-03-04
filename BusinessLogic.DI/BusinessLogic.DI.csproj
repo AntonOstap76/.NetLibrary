@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\AuthorServiceProject\AuthorServiceProject.csproj" />
+      <ProjectReference Include="..\BookServiceProject\BookServiceProject.csproj" />
+      <ProjectReference Include="..\CommonServiceProject\CommonServiceProject.csproj" />
+      <ProjectReference Include="..\DataAccessLayer.DI\DataAccessLayer.DI.csproj" />
+      <ProjectReference Include="..\MagazineIssueServiceProject\MagazineIssueServiceProject.csproj" />
+      <ProjectReference Include="..\MagazineServiceProject\MagazineServiceProject.csproj" />
+      <ProjectReference Include="..\PatentServiceProject\PatentServiceProject.csproj" />
+      <ProjectReference Include="..\PublisherServiceProject\PublisherServiceProject.csproj" />
+      <ProjectReference Include="..\UserServiceProject\UserServiceProject.csproj" />
+      <ProjectReference Include="..\UserValidator\UserValidator.csproj" />
+      <ProjectReference Include="..\ValidatorProject\ValidatorProject.csproj" />
+    </ItemGroup>
+
+</Project>

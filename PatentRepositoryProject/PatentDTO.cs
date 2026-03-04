@@ -1,6 +1,12 @@
-﻿namespace PatentRepositoryProject;
+﻿using CommonRepositoryProject;
+using DomainProject;
 
-public class PatentDTO
+namespace PatentRepositoryProject;
+
+public class PatentDTO : CommonEntityDTO
 {
-    
+    public required string PatentCode { get; set; }
+    public DateTime PublishDate { get; set; }
+    //Authors
+    public List<Author> Authors { get; set; }
 }

@@ -15,4 +15,10 @@ public class MagazineIssue : CommonEntity
         PublisherDate = publisherDate;
         MagazineIssn = magazineIssn;
     }
+
+    public override string ToString()
+    {
+        return $"Magazine called {Title} with code {MagazineIssn} which is a {Number} from {Magazine.Title}" +
+               $"that started publishing {PublisherDate} with content {Content}";
+    }
 }

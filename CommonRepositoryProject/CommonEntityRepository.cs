@@ -5,7 +5,7 @@ namespace CommonRepositoryProject;
 public class CommonEntityRepository<T> : ICommonEntityRepository<T>
     where T : CommonEntity
 {
-    private readonly List<T> _database = new();
+    public readonly List<T> _database = new();
 
     public virtual void Create(T entity)
     {
@@ -38,7 +38,7 @@ public class CommonEntityRepository<T> : ICommonEntityRepository<T>
         return _database.Any(e => e.Id == entity.Id);
     }
 
-    public virtual Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public virtual Task<T?> GetAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var entity = _database.FirstOrDefault(i => i.Id == id);
         return Task.FromResult(entity);
@@ -66,5 +66,10 @@ public class CommonEntityRepository<T> : ICommonEntityRepository<T>
         var content = contentProperty.GetValue(entity)?.ToString();
 
         return Task.FromResult(content);
+    }
+
+    public Task<Guid> GetContentsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
     }
 }

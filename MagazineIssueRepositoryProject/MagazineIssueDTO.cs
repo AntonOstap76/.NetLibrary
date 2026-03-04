@@ -1,5 +1,12 @@
-﻿namespace MagazineIssueRepositoryProject;
+﻿using CommonRepositoryProject;
+using DomainProject;
 
-public class MagazineIssueDTO
+namespace MagazineIssueRepositoryProject;
+
+public class MagazineIssueDTO : CommonEntityDTO
 {
+    public int Number { get; set; }
+    public DateTime PublisherDate { get; set; }
+    public required string MagazineIssn { get; set; }
+    public Magazine Magazine { get; set; }
 }
