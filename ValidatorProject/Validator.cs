@@ -4,15 +4,22 @@ namespace ValidatorProject;
 
 public class Validator<T> : IValidator<T>
 {
-    internal readonly ValidatorResult result = new ();
+    internal readonly ValidatorResult result = new();
 
 
     public IValidator<T> IsNotNull(T entity)
     {
         if (entity == null)
         {
-          result.Errors.Add($"Entity can not be null: {typeof(T)}");  
+            result.Errors.Add($"Entity can not be null: {typeof(T)}");
         }
+
+        return this;
+    }
+
+    public IValidator<T> AddError(string errorMessage)
+    {
+        result.Errors.Add(errorMessage);
         return this;
     }
 
@@ -20,6 +27,6 @@ public class Validator<T> : IValidator<T>
     {
         return result.Errors.Any()
             ? ValidatorResult.Fail(result.Errors)
-            : ValidatorResult.Success(); ;
+            : ValidatorResult.Success();
     }
 }
