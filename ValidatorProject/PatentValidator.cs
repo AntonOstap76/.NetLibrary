@@ -54,9 +54,42 @@ public static class PatentValidator
 
         return validator;
     }
-    
-    //TODO 
-    //Validator for the content? Dont have ideas for now
-    //Should I validate for the authors?
+
+    public static IValidator<Patent> ValidateContent(this IValidator<Patent> validator, string content)
+    {
+        var contentValidator = new Validator<string>();
+        contentValidator.IsNotNull(content).IsNotEmpty(content).MinLength(50, content);
+        
+        var result = contentValidator.Validate();
+        if (result.Errors != null)
+        {
+            foreach (var error in result.Errors)
+            {
+                validator.AddError($"Content: {error}");
+            }
+        }
+        
+        return validator;
+    }
+
+    public static IValidator<Patent> ValidateAuthors(this IValidator<Patent> validator, Patent patent )
+    {
+        if (patent.Authors == null)
+        {
+            validator.AddError("Authors are required");
+        }
+        return validator;
+    }
+
+    public static IValidator<Patent> ValidatePatent(this IValidator<Patent> validator, Patent patent)
+    {
+        validator.ValidateTitle(patent.Title);
+        validator.ValidateCode(patent.PatentCode);
+        validator.ValidateDate(patent.PublishDate);
+        validator.ValidateAuthors(patent);
+        validator.ValidateContent(patent.Content);
+        
+        return validator;
+    }
     
 }

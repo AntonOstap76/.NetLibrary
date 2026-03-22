@@ -71,5 +71,6 @@ public class CommonEntityRepository<T> : ICommonEntityRepository<T>
     public Task<Guid> GetContentsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
+        //what we want to do here?
     }
 }

@@ -2,13 +2,17 @@
 
 public class Book : CommonEntity
 {
-    public required string Isbn { get; set; }
+    public required string Isbn { get; init; }
+    public List<Author> AuthorIDs { get; set; }
+    public Publisher PublisherID { get; set; }
 
-    public Book(string title, string content, string isbn)
+    public Book(string title, string content, string isbn, List<Author> authorId, Publisher publisherId)
     {
         Title = title;
         Content = content;
         Isbn = isbn;
+        AuthorIDs = authorId;
+        PublisherID = publisherId;
     }
 
     public override string ToString()

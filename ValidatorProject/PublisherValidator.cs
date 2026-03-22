@@ -37,4 +37,12 @@ public static class PublisherValidator
 
         return validator;
     }
+
+    public static IValidator<Publisher> ValidatePublisher(this IValidator<Publisher> validator, Publisher publisher)
+    {
+        validator.ValidateName(publisher.Name);
+        validator.ValidateFoundedYear(publisher.FoundedYear);
+        
+        return validator;
+    }
 }

@@ -72,11 +72,44 @@ public static class MagazineIssueValidator
 
         return validator;
     }
-    
-    
-    
-    //TODO 
-    //Validator for the content? Dont have ideas for now
-    //Should I validate for the magazine?
-    
+
+    public static IValidator<MagazineIssue> ValidateContent(this IValidator<MagazineIssue> validator, string content)
+    {
+        var contentValidator = new Validator<string>();
+        contentValidator.IsNotNull(content).IsNotEmpty(content).MinLength(50, content);
+        
+        var result = contentValidator.Validate();
+        if (result.Errors != null)
+        {
+            foreach (var error in result.Errors)
+            {
+                validator.AddError($"Content: {error}");
+            }
+        }
+
+        return validator;
+    }
+
+    public static IValidator<MagazineIssue> ValidateMagazine(this IValidator<MagazineIssue> validator,
+        MagazineIssue magazineIssue)
+    {
+        if (magazineIssue.Magazine.Id == null)
+        {
+            validator.AddError($"Should contain a magazine id");
+        }
+        return validator;
+    }
+
+    public static IValidator<MagazineIssue> ValidateMagazineIssue(this IValidator<MagazineIssue> validator,
+        MagazineIssue magazineIssue)
+    {
+        validator.ValidateNumber(magazineIssue.Number);
+        validator.ValidateTitle(magazineIssue.Title);
+        validator.ValidateDate(magazineIssue.PublisherDate);
+        validator.ValidateIssn(magazineIssue.MagazineIssn);
+        validator.ValidateContent(magazineIssue.Content);
+        validator.ValidateMagazine(magazineIssue);
+        
+        return validator;
+    }
 }

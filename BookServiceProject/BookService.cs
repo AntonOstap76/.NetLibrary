@@ -19,7 +19,7 @@ public class BookService : CommonEntityService<Book>,IBookService
         return _repository.GetAllByAuthorAsync(authorId, cancellationToken);
     }
 
-    public Task<List<Book?>> GetAllByPublisherAsync(Guid id, CancellationToken cancellationToken = default)
+    public Task<List<Book>?> GetAllByPublisherAsync(Guid id, CancellationToken cancellationToken = default)
     {
         return _repository.GetAllByPublisherAsync(id, cancellationToken);
     }

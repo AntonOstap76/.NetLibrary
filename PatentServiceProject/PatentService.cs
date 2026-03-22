@@ -17,12 +17,7 @@ public class PatentService: CommonEntityService<Patent>, IPatentService
     {
        return _repository.GetAsync(author, cancellationToken);
     }
-
-    public Task<List<Patent?>> GetAsync(Publisher publisher, CancellationToken cancellationToken = default)
-    {
-        return _repository.GetAsync(publisher, cancellationToken);
-    }
-
+    
     public Task<List<Patent?>> GetAsync(IEnumerable<Author> authors, CancellationToken cancellationToken = default)
     {
         return  _repository.GetAsync(authors, cancellationToken);

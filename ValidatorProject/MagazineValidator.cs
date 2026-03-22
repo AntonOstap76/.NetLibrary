@@ -64,7 +64,23 @@ public static class MagazineValidator
 
         return validator;
     }
-    
-    //TODO 
-    //Validator for the MagazineIssue and publisher? 
+
+    public static IValidator<Magazine> ValidatePublisher(this IValidator<Magazine> validator, Magazine magazine)
+    {
+        if (magazine.PublisherId.Id== null)
+        {
+            validator.AddError("Publisher cannot be null");
+        }
+        return validator;
+    }
+
+    public static IValidator<Magazine> ValidatePublisherId(this IValidator<Magazine> validator, Magazine magazine)
+    {
+        validator.ValidateIssn(magazine.Issn);
+        validator.ValidateTitle(magazine.Title);
+        validator.ValidateEndDate(magazine.PublisherDate, magazine.EndOfPublish);
+        validator.ValidateStartDate(magazine.PublisherDate, magazine.EndOfPublish);
+        validator.ValidatePublisher(magazine);
+        return validator;
+    }
 }

@@ -13,16 +13,24 @@ public class PatentRepository : CommonEntityRepository<Patent>, IPatentRepositor
 
     public Task<List<Patent?>> GetAsync(Author author, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var patents = _database.FindAll(p=>p.Authors.Any(a=>a.Id == author.Id));
+        if (!patents.Any())
+        {
+            return Task.FromResult<List<Patent?>>(null);
+        }
+        return Task.FromResult<List<Patent?>>(patents);
     }
-
-    public Task<List<Patent?>> GetAsync(Publisher publisher, CancellationToken cancellationToken = default)
-    {
-        throw new NotImplementedException();
-    }
-
+    
     public Task<List<Patent?>> GetAsync(IEnumerable<Author> authors, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        if (authors == null || !authors.Any())
+            return Task.FromResult(new List<Patent?>());
+
+        var patents = _database.FindAll(p => p.Authors.Any(a => authors.Any(i => i.Id == a.Id)));
+
+        if (!patents.Any())
+            return Task.FromResult(new List<Patent?>());
+
+        return Task.FromResult<List<Patent?>>(patents);    
     }
 }

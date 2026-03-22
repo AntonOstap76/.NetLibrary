@@ -21,7 +21,7 @@ public static class AuthorValidator
         return validator;
     }
     
-    public static IValidator<Author> ValidateLastname(this IValidator<Author> validator, string lastName)
+    public static IValidator<Author> ValidateLastName(this IValidator<Author> validator, string lastName)
     {
         var nameValidator = new Validator<string>();
         nameValidator.IsNotNull(lastName).IsNotEmpty(lastName).LengthRange(7, 20, lastName).OnlyLetters(lastName);
@@ -54,8 +54,25 @@ public static class AuthorValidator
 
         return validator;
     }
-    
-    //TODO
-    //Country validation?P
+
+    public static IValidator<Author> ValidateCountry(this IValidator<Author> validator, Author author)
+    {
+        if (author.Country == null)
+        {
+            validator.AddError($"Country should be written for the author");
+        }
+
+        return validator;
+    }
+
+    public static IValidator<Author> ValidateAuthor(this IValidator<Author> validator, Author author)
+    {
+        validator.ValidateName(author.Name);
+        validator.ValidateLastName(author.LastName);
+        validator.ValidateBirthdayYear(author.BirthdayYear);
+        validator.ValidateCountry(author);
+
+        return validator;
+    }
     
 }

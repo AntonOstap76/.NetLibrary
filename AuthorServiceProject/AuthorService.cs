@@ -24,7 +24,7 @@ public class AuthorService:CommonCreatorService<Author>,IAuthorService
         return  _repository.GetAllBooksAsync(authorId, cancellationToken);
     }
 
-    public Task<List<Author?>> GetAuthorAsync(Guid patentId, CancellationToken cancellationToken = default)
+    public Task<Author?> GetAuthorAsync(Guid patentId, CancellationToken cancellationToken = default)
     {
         return  _repository.GetAuthorAsync(patentId, cancellationToken);
     }
