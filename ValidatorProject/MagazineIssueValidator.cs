@@ -8,7 +8,7 @@ public static class MagazineIssueValidator
     public static IValidator<MagazineIssue> ValidateNumber(this IValidator<MagazineIssue> validator, int number)
     {
         var validatorNumber = new Validator<int>();
-        validatorNumber.IsNotNull(number).Positive(number).GreaterThan(0, number);
+        validatorNumber.IsNotNull(number).Positive(number);
         
         var result = validatorNumber.Validate();
         if (result.Errors != null)

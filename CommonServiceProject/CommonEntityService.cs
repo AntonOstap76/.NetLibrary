@@ -19,12 +19,12 @@ public class CommonEntityService<T> : ICommonEntityService<T> where T : CommonEn
 
     public virtual void Update(T entity)
     {
-       _repository.Update(entity);
+        _repository.Update(entity);
     }
 
     public virtual void Delete(T entity)
     {
-       _repository.Delete(entity);
+        _repository.Delete(entity);
     }
 
     public virtual bool Exists(T entity)
