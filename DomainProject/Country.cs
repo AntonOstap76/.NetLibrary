@@ -1,11 +1,13 @@
-﻿namespace DomainProject;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace DomainProject;
 
 public class Country
 {
-    public required string Name { get; set; }
-    public required string Code { get; set; }
-    public required string Language { get; set; }
-
+    public string Name { get; set; }
+    public string Code { get; set; }
+    public string Language { get; set; }
+    
     public Country(string name, string code, string language)
     {
         Name = name;

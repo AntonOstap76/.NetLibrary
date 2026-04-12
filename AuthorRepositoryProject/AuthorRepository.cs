@@ -10,7 +10,7 @@ public class AuthorRepository : CommonCreatorRepository<Author>, IAuthorReposito
         var author = _databaseCreator.FirstOrDefault(a => a.Id == authorId);
 
         if (author == null)
-            return Task.FromResult(new List<Patent?>());
+            throw new NotFoundException(nameof(Author), authorId);
 
         var patents = author.Entities?
             .OfType<Patent>()
@@ -28,7 +28,7 @@ public class AuthorRepository : CommonCreatorRepository<Author>, IAuthorReposito
         var author = _databaseCreator.FirstOrDefault(a => a.Id == authorId);
 
         if (author == null)
-            return Task.FromResult(new List<Book?>());
+            throw new NotFoundException(nameof(Author), authorId);
 
         var books = author.Entities?
             .OfType<Book>()
@@ -45,9 +45,7 @@ public class AuthorRepository : CommonCreatorRepository<Author>, IAuthorReposito
     {
         var author = _databaseCreator.FirstOrDefault(p => p.PatentId.Id == patentId);
         if (author == null)
-        {
-            return Task.FromResult<Author?>(null);
-        }
+            throw new NotFoundException($"Not founded Author by id {patentId}");
         return Task.FromResult(author);
     }
 }

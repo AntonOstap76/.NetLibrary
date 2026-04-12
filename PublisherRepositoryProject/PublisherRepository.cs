@@ -11,7 +11,7 @@ public class PublisherRepository : CommonCreatorRepository<Publisher>, IPublishe
         var publisher = _databaseCreator.FirstOrDefault(p => p.Id == publisherId);
 
         if (publisher == null)
-            return Task.FromResult(new List<Magazine>());
+            throw new NotFoundException(nameof(Publisher), publisherId);
 
         var magazines = publisher.Magazines;
 
@@ -26,7 +26,7 @@ public class PublisherRepository : CommonCreatorRepository<Publisher>, IPublishe
         var publisher = _databaseCreator.FirstOrDefault(p => p.Id == publisherId);
 
         if (publisher == null)
-            return Task.FromResult(new List<Book>());
+            throw new NotFoundException(nameof(Publisher), publisherId);
 
         var books = publisher.Entities?
             .OfType<Book>()

@@ -5,14 +5,11 @@ namespace PatentRepositoryProject;
 
 public class PatentRepository : CommonEntityRepository<Patent>, IPatentRepository
 {
-    public Task<List<Author?>> GetAuthorAsync(Guid patentId, CancellationToken cancellationToken=default)
-    {
-       var entity = _database.FirstOrDefault(x => x.Id == patentId);
-       return Task.FromResult(entity.Authors);
-    }
-
     public Task<List<Patent?>> GetAsync(Author author, CancellationToken cancellationToken = default)
     {
+        if (author == null)
+            throw new ArgumentNullException(nameof(author));
+        
         var patents = _database.FindAll(p=>p.Authors.Any(a=>a.Id == author.Id));
         if (!patents.Any())
         {
@@ -24,7 +21,7 @@ public class PatentRepository : CommonEntityRepository<Patent>, IPatentRepositor
     public Task<List<Patent?>> GetAsync(IEnumerable<Author> authors, CancellationToken cancellationToken = default)
     {
         if (authors == null || !authors.Any())
-            return Task.FromResult(new List<Patent?>());
+            throw new ArgumentNullException(nameof(authors));
 
         var patents = _database.FindAll(p => p.Authors.Any(a => authors.Any(i => i.Id == a.Id)));
 

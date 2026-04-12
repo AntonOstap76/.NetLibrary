@@ -1,16 +1,16 @@
-﻿namespace DomainProject;
+﻿using System.Diagnostics.CodeAnalysis;
 
-public class Publisher: CommonCreator
+namespace DomainProject;
+
+public class Publisher : CommonCreator
 {
     public DateTime FoundedYear { get; set; }
     public List<Magazine>? Magazines { get; set; }
-
-    public Publisher(string name, Country country, DateTime foundedYear, List<CommonEntity>? entities, List<Magazine>? magazines)
+    
+    public Publisher(string name, Country country, DateTime foundedYear, List<CommonEntity>? entities,
+        List<Magazine>? magazines) : base(name, country, entities)
     {
-        Name = name;
-        Country = country;
         FoundedYear = foundedYear;
-        Entities = entities;
         Magazines = magazines;
     }
 

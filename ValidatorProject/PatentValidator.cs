@@ -7,7 +7,7 @@ public static class PatentValidator
     public static IValidator<Patent> ValidateTitle(this IValidator<Patent> validator, string title)
     {
         var titleValidator = new Validator<string>();
-        titleValidator.IsNotNull(title).IsNotEmpty(title).MinLength(5, title).MaxLength(500, title);
+        titleValidator.IsNotNull(title).IsNotEmpty(title).LengthRange(5,500, title);
         var result = titleValidator.Validate();
 
         if (result.Errors != null)

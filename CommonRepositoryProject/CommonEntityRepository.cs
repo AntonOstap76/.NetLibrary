@@ -17,7 +17,7 @@ public class CommonEntityRepository<T> : ICommonEntityRepository<T>
         var existing = _database.FirstOrDefault(e => e.Id == entity.Id);
 
         if (existing == null)
-            return;
+            throw new NotFoundException(typeof(T).Name, entity.Id);
 
         var index = _database.IndexOf(existing);
         _database[index] = entity;
@@ -25,6 +25,11 @@ public class CommonEntityRepository<T> : ICommonEntityRepository<T>
 
     public virtual void Delete(T entity)
     {
+        var existing = _database.FirstOrDefault(e => e.Id == entity.Id);
+
+        if (existing == null)
+            throw new NotFoundException(typeof(T).Name, entity.Id);
+
         _database.RemoveAll(e => e.Id == entity.Id);
     }
 
@@ -42,7 +47,6 @@ public class CommonEntityRepository<T> : ICommonEntityRepository<T>
     {
         var entity = _database.FirstOrDefault(i => i.Id == id);
         return Task.FromResult(entity);
-        
     }
 
     public virtual Task<List<T>> GetAllAsync(CancellationToken cancellationToken = default)

@@ -3,7 +3,7 @@
 public class ValidatorResult
 {
     public bool IsValid { get; private set; }
-    public List<string>? Errors { get; private set; }
+    public List<string>? Errors { get; private set; } = new List<string>();
 
     //will it work to make a validator result private to prevent creation of the validation result
     public ValidatorResult()
