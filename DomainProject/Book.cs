@@ -1,15 +1,16 @@
-﻿namespace DomainProject;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace DomainProject;
 
 public class Book : CommonEntity
 {
-    public required string Isbn { get; init; }
+    public string Isbn { get; init; }
     public List<Author> AuthorIDs { get; set; }
     public Publisher PublisherID { get; set; }
-
-    public Book(string title, string content, string isbn, List<Author> authorId, Publisher publisherId)
+    
+    public Book(string title, string content, string isbn, List<Author> authorId, Publisher publisherId) : base(title,
+        content)
     {
-        Title = title;
-        Content = content;
         Isbn = isbn;
         AuthorIDs = authorId;
         PublisherID = publisherId;

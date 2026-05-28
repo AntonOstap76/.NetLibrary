@@ -5,7 +5,7 @@ namespace MagazineRepositoryProject;
 
 public class MagazineRepository : IMagazineRepository
 {
-    private readonly List<Magazine> _database = new();
+    public readonly List<Magazine> _database = new();
 
     public void Create(Magazine magazine)
     {
@@ -17,7 +17,7 @@ public class MagazineRepository : IMagazineRepository
         var existing = _database.FirstOrDefault(e => e.Id == magazine.Id);
 
         if (existing == null)
-            return;
+            throw new NotFoundException(nameof(Magazine), magazine.Id);
 
         var index = _database.IndexOf(existing);
         _database[index] = magazine;
@@ -25,6 +25,11 @@ public class MagazineRepository : IMagazineRepository
 
     public void Delete(Magazine magazine)
     {
+        var existing = _database.FirstOrDefault(e => e.Id == magazine.Id);
+
+        if (existing == null)
+            throw new NotFoundException(nameof(Magazine), magazine.Id);
+
         _database.RemoveAll(e => e.Id == magazine.Id);
     }
 
@@ -48,10 +53,10 @@ public class MagazineRepository : IMagazineRepository
     public Task<Magazine> GetMagazineAsync(Guid magazineIssueId, CancellationToken cancellationToken = default)
     {
         var entity = _database.FirstOrDefault(m => m.MagazineIssues.Any(i => i.Id == magazineIssueId));
+        
         if (entity == null)
-        {
-            return Task.FromResult<Magazine?>(null);
-        }
+            throw new NotFoundException(nameof(MagazineIssue), magazineIssueId);
+
         return Task.FromResult(entity);
     }
 
@@ -62,6 +67,7 @@ public class MagazineRepository : IMagazineRepository
         {
             return Task.FromResult(new List<Magazine>());
         }
+
         return Task.FromResult(entities);
     }
 }

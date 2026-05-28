@@ -7,7 +7,7 @@ public class CommonCreatorService<T>  : ICommonCreatorService<T> where T : Commo
 {
     private readonly ICommonCreatorRepository<T> _repository;
 
-    public CommonCreatorService(ICommonCreatorRepository<T> repository)
+    protected CommonCreatorService(ICommonCreatorRepository<T> repository)
     {
         _repository = repository;
     }

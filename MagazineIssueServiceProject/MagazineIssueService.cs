@@ -8,7 +8,7 @@ namespace MagazineIssueServiceProject;
 public class MagazineIssueService:CommonEntityService<MagazineIssue>, IMagazineIssueService
 {
     private readonly IMagazineIssueRepository _repository;
-    public MagazineIssueService(MagazineIssueRepository repository) : base(repository)
+    public MagazineIssueService(IMagazineIssueRepository repository) : base(repository)
     {
         _repository = repository;
     }
