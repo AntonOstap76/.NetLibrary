@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\DomainProject\DomainProject.csproj" />
+      <ProjectReference Include="..\RepositoryToolsProject\RepositoryToolsProject.csproj" />
     </ItemGroup>
 
 </Project>
