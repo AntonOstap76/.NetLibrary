@@ -1,15 +1,25 @@
 ﻿using DomainProject;
+using RepositoryToolsProject;
 
 namespace CommonRepositoryProject;
 
-public class CommonEntityRepository<T> : ICommonEntityRepository<T>
+public abstract class CommonEntityRepository<T> : ICommonEntityRepository<T>
     where T : CommonEntity
 {
-    public readonly List<T> _database = new();
+    private readonly IDbConnectionFactory _factory;
+    
+    protected abstract string TableName { get; }
 
-    public virtual void Create(T entity)
+    protected CommonEntityRepository(IDbConnectionFactory factory)
     {
-        _database.Add(entity);
+        _factory = factory;
+    }
+
+    public virtual async Task CreateAsync(T entity)
+    {
+        using var conn = _factory.CreateConnection();
+        var sql = $"INSERT INTO {TableName} VALUES (@Id)";
+        await conn.ExecuteAsync(sql, entity);
     }
 
     public virtual void Update(T entity)
@@ -38,9 +48,16 @@ public class CommonEntityRepository<T> : ICommonEntityRepository<T>
     //     return Task.FromResult(true);
     // }
 
-    public virtual bool Exists(T entity)
+    public virtual async Task<bool> Exists(T entity)
     {
-        return _database.Any(e => e.Id == entity.Id);
+        using var conn = _factory.CreateConnection();
+
+        var parameters = new DynamicParameters();
+        parameters.Add("p_table_name", typeof(T).Name);
+        parameters.Add("p_id", entity.Id);
+
+        return await conn.ExecuteScalarAsync<bool>("SELECT sp_entity_exists(@p_table_name, @p_id)",
+            parameters);
     }
 
     public virtual Task<T?> GetAsync(Guid id, CancellationToken cancellationToken = default)
